@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santo Corte | Charcutaria Artesanal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+        /* Variáveis de Cores e Efeitos */
+        :root {
+            --bg-color: #030303;
+            --bg-card: rgba(15, 15, 18, 0.75);
+            --primary-red: #9b111e;
+            --primary-red-hover: #c91826;
+            --text-light: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(12px);
+            --whatsapp-green: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            background-color: #111; /* Fallback */
+            background-image: url('https://images.unsplash.com/photo-1544025162-811114b0a430?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(3,3,3,1) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        .subtitle {
+            color: var(--primary-red-hover);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            line-height: 1.1;
+        }
+
+        .tagline {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 35px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #ccc;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .tagline span {
+            color: var(--primary-red);
+            margin: 0 12px;
+        }
+
+        .intro {
+            margin: 40px auto 0;
+            font-size: 1.2rem;
+            font-weight: 300;
+            font-style: italic;
+            color: #dcdcdc;
+        }
+
+        main {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 80px 0 50px;
+        }
+
+        .section-number {
+            color: var(--primary-red);
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-style: italic;
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* --- Grid de Menu --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .menu-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--primary-red);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(155, 17, 30, 0.3);
+            border-top-color: var(--primary-red-hover);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            background-color: #1a1a1a; /* Fallback caso a imagem atrase */
+        }
+
+        .card-img-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--bg-card) 0%, transparent 100%);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .menu-card:hover .card-img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(155, 17, 30, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .menu-item {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-item::before {
+            content: '♦';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--primary-red);
+            font-size: 0.75rem;
+            transition: color 0.3s ease;
+        }
+        
+        .menu-card:hover .menu-item::before {
+            color: var(--primary-red-hover);
+            text-shadow: 0 0 8px var(--primary-red);
+        }
+
+        .item-name {
+            display: block;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .item-desc {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* --- Seção de Parcerias --- */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .partner-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 30px 20px;
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            border-color: var(--primary-red);
+            background: rgba(155, 17, 30, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .partner-name {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .partner-role {
+            font-size: 0.85rem;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* --- Seção de Contato & Formulário --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 4px;
+            font-family: 'Lato', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(155, 17, 30, 0.3);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn svg {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-red);
+            color: #fff;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-red-hover);
+            box-shadow: 0 8px 20px rgba(155, 17, 30, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn-whatsapp {
+            background-color: transparent;
+            color: var(--whatsapp-green);
+            border: 1px solid var(--whatsapp-green);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-green);
+            color: #000;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-email {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-email:hover {
+            border-color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
+        }
+
+        /* --- Botão Flutuante Padrão Absoluto --- */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-green);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: #1ebe57;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 80px 20px 40px;
+            background: linear-gradient(to bottom, transparent, rgba(155, 17, 30, 0.05));
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+        }
+
+        .footer-logo {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: #777;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* --- Animações --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 900px) {
+            .contact-wrapper { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 3.2rem; }
+            .section-title { font-size: 2rem; }
+            .tagline { padding: 10px; font-size: 0.75rem; }
+            .hero { background-attachment: scroll; }
+            .floating-btn { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+            .floating-btn svg { width: 26px; height: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="subtitle">Charcutaria Artesanal</div>
+            <h1 class="title">SANTO CORTE</h1>
+            <div class="tagline">Tradição <span>✦</span> Qualidade <span>✦</span> Sabor</div>
+            <p class="intro">
+                Uma seleção exclusiva de produtos artesanais, desenvolvida para elevar o nível da sua experiência gastronômica. Unimos o respeito sagrado à tradição da charcutaria a ingredientes minuciosamente selecionados.
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <!-- CAPÍTULO I -->
+        <div class="section-header reveal">
+            <span class="section-number brand-font">Capítulo I</span>
+            <h2 class="section-title">Artesanal & Processados</h2>
+            <p class="section-desc">Feitos com maestria para garantir suculência e um sabor inconfundível.</p>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card reveal">
+                <div class="card-img-wrapper">
+                    <!-- Novas imagens diretas e ultra estáveis -->
+                    <img src="https://images.unsplash.com/photo-1585238341267-1cb020ef428b?auto=format&fit=crop&q=80&w=600" alt="Linguiças Artesanais" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Linguiças Artesanais</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Queijo Coalho</span>
+                        <span class="item-desc">Equilíbrio perfeito com queijo derretido.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Pimenta Biquinho</span>
+                        <span class="item-desc">Sabor marcante sem ardência excessiva.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Alho e Ervas Finas</span>
+                        <span class="item-desc">Clássica e intensamente aromática.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Bacon</span>
+                        <span class="item-desc">Defumação rústica inconfundível.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card reveal">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1608500218890-c4f8601cb813?auto=format&fit=crop&q=80&w=600" alt="Almôndegas Premium" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Almôndegas Premium</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Tradicionais Recheadas</span>
+                        <span class="item-desc">Bacon ou Queijo derretido no interior.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Toque Mediterrâneo</span>
+                        <span class="item-desc">Tomate Seco com Manjericão fresco.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Alho e Ervas</span>
+                        <span class="item-desc">Tempero verde da casa.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card reveal">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1544025162-811114b0a430?auto=format&fit=crop&q=80&w=600" alt="Hambúrgueres Gourmet e Kaftas" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Burgers & Kaftas</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Manta Especial</span>
+                        <span class="item-desc">Corte nobre recheado com bastante queijo.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Kafta Tradicional</span>
+                        <span class="item-desc">Especiarias orientais com o nosso toque.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Bovino Clássico</span>
+                        <span class="item-desc">Blend exclusivo (apenas o disco de carne artesanal).</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO II -->
+        <div class="section-header reveal" style="margin-top: 100px;">
+            <span class="section-number brand-font">Capítulo II</span>
+            <h2 class="section-title">Seleção de Espetos</h2>
+            <p class="section-desc">A combinação perfeita de praticidade e cortes premium para o seu evento.</p>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card reveal">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5e?auto=format&fit=crop&q=80&w=600" alt="Bovinos e Suínos" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Bovinos & Suínos</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Espeto Bovino Clássico</span>
+                        <span class="item-desc">Corte macio, pronto para a brasa.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Medalhões Premium</span>
+                        <span class="item-desc">Bovino ou Suíno envolto em finas fatias de bacon.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Espeto Suíno</span>
+                        <span class="item-desc">Carne suculenta com tempero tradicional.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card reveal">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=600" alt="Aves e Especiais" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Aves & Especiais</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Espeto & Medalhão</span>
+                        <span class="item-desc">Leveza e sabor na medida certa.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Frango Empanado</span>
+                        <span class="item-desc">Crocância inigualável por fora, maciez por dentro.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Agridoce Irresistível</span>
+                        <span class="item-desc">Queijo Coalho, Goiabada cascão e Bacon defumado.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO III -->
+        <div class="section-header reveal" style="margin-top: 100px;">
+            <span class="section-number brand-font">Capítulo III</span>
+            <h2 class="section-title">Cortes Temperados</h2>
+            <p class="section-desc">Marinadas de longas horas. Sabores intensos, prontos para a grelha ou forno.</p>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card reveal">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1602030638412-bb8d20c51344?auto=format&fit=crop&q=80&w=600" alt="Seleção de Aves" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Seleção de Aves</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Sobrecoxa Embriagada</span>
+                        <span class="item-desc">Marinada na cerveja escura e envolta no bacon.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Tulipa Especial</span>
+                        <span class="item-desc">Ao molho de Mostarda e Mel ou Ervas Finas.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Coração ao Vinho</span>
+                        <span class="item-desc">Marinado lentamente em vinho tinto selecionado.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card reveal">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1623855244183-52fd8d3ce2f7?auto=format&fit=crop&q=80&w=600" alt="Carnes Nobres" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Carnes Nobres</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Cupim Recheado</span>
+                        <span class="item-desc">Corte nobre temperado com fartura de queijo.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Cupim Mostarda e Mel</span>
+                        <span class="item-desc">Equilíbrio agridoce perfeito para quebrar a gordura.</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Costela Barbecue</span>
+                        <span class="item-desc">Molho americano autêntico, intenso e defumado.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO IV: PARCERIAS -->
+        <div class="section-header reveal" style="margin-top: 100px;">
+            <span class="section-number brand-font">Capítulo IV</span>
+            <h2 class="section-title">Parcerias de Excelência</h2>
+            <p class="section-desc">Trabalhamos lado a lado com as melhores marcas nacionais para garantir insumos de altíssima qualidade.</p>
+        </div>
+
+        <div class="partners-grid reveal">
+            <div class="partner-card">
+                <h4 class="partner-name brand-font">[Empresa Parceira 1]</h4>
+                <span class="partner-role">Especiarias & Temperos</span>
+            </div>
+            <div class="partner-card">
+                <h4 class="partner-name brand-font">[Empresa Parceira 2]</h4>
+                <span class="partner-role">Fornecimento de Carnes</span>
+            </div>
+            <div class="partner-card">
+                <h4 class="partner-name brand-font">[Empresa Parceira 3]</h4>
+                <span class="partner-role">Laticínios & Queijos</span>
+            </div>
+            <div class="partner-card">
+                <h4 class="partner-name brand-font">[Empresa Parceira 4]</h4>
+                <span class="partner-role">Embalagens Premium</span>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO V: CONTATO -->
+        <div id="contato" class="section-header reveal" style="margin-top: 100px;">
+            <span class="section-number brand-font">Capítulo V</span>
+            <h2 class="section-title">Faça sua Encomenda</h2>
+            <p class="section-desc">Garantimos um atendimento exclusivo para levar a melhor experiência ao seu evento.</p>
+        </div>
+
+        <div class="contact-wrapper reveal">
+            <!-- Formulário Completo -->
+            <form action="#" method="POST" class="contact-form">
+                <div class="form-group">
+                    <input type="text" name="nome" class="form-input" placeholder="Seu Nome Completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" class="form-input" placeholder="Seu E-mail" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" name="telefone" class="form-input" placeholder="Seu Telefone / WhatsApp" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="descricao" class="form-input" placeholder="Detalhes do pedido, dúvidas ou descrição do seu evento..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Enviar Mensagem</button>
+            </form>
+
+            <!-- Informações e Botões Rápidos -->
+            <div class="contact-info">
+                <div>
+                    <h3 class="brand-font">Fale Conosco</h3>
+                    <p>Precisa de uma resposta rápida? Utilize os nossos canais de atendimento direto.</p>
+                </div>
+                
+                <a href="https://wa.me/5500000000000" class="btn btn-whatsapp" target="_blank">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                    </svg>
+                    WhatsApp Direto
+                </a>
+                
+                <a href="mailto:contato@santocorte.com.br" class="btn btn-email">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    contato@santocorte.com.br
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5500000000000" class="floating-btn" target="_blank" aria-label="Fale conosco pelo WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+    </a>
+
+    <footer>
+        <div class="footer-logo reveal">SC</div>
+        <p class="footer-text reveal">Cortes Especiais ✥ Sabores que Conectam</p>
+        <p class="footer-text reveal" style="margin-top: 15px; font-size: 0.75rem;">Santo Corte Charcutaria &copy; 2026 | @santocorte.charcutaria</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.15, 
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+        });
+    </script>
+</body>
+</html>
