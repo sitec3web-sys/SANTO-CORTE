@@ -235,6 +235,7 @@
             margin-bottom: 100px;
             box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
             width: 100%;
+            box-sizing: border-box;
         }
 
         .section-header {
@@ -289,6 +290,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            box-sizing: border-box;
         }
 
         @keyframes borderMotion {
@@ -306,6 +308,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .card-img-wrapper {
@@ -341,6 +344,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .card-title {
@@ -422,20 +426,23 @@
             font-weight: 500;
         }
 
-        /* --- Formulário e Contato (Corrigido para nunca exceder o cartão) --- */
+        /* --- CAPÍTULO V: Formulário & Contato Corrigido --- */
         .contact-inner {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 30px;
             padding: 40px;
             width: 100%;
+            max-width: 100%;
             box-sizing: border-box;
         }
 
         .contact-form {
             width: 100%;
+            max-width: 100%;
             display: flex;
             flex-direction: column;
+            box-sizing: border-box;
         }
 
         .contact-info {
@@ -444,6 +451,8 @@
             justify-content: center;
             gap: 20px;
             width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .contact-info h3 {
@@ -453,9 +462,17 @@
             letter-spacing: 2px;
         }
 
+        .contact-info p {
+            color: var(--text-muted);
+            font-weight: 300;
+            word-wrap: break-word;
+        }
+
         .form-group { 
-            margin-bottom: 20px; 
+            margin-bottom: 18px; 
             width: 100%; 
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .form-input {
@@ -468,7 +485,7 @@
             font-size: 1rem;
             border-radius: 6px;
             font-family: 'Montserrat', sans-serif;
-            box-sizing: border-box; /* Impede que o padding ultrapasse o container */
+            box-sizing: border-box; /* Crucial para conter o input na caixa */
             transition: all 0.3s ease;
         }
 
@@ -480,16 +497,16 @@
 
         textarea.form-input {
             resize: vertical;
-            min-height: 130px;
+            min-height: 120px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 25px;
+            padding: 16px 20px;
             font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -500,20 +517,22 @@
             width: 100%;
             max-width: 100%;
             box-sizing: border-box;
+            word-break: break-word;
         }
 
         .btn svg {
-            margin-right: 12px;
-            width: 20px;
-            height: 20px;
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
+            flex-shrink: 0;
         }
 
         .btn-submit { 
             background-color: var(--red-main); 
             color: var(--text-light); 
             border: none; 
-            margin-top: 10px; 
+            margin-top: 5px; 
             font-family: 'Cinzel', serif; 
         }
         .btn-submit:hover { background-color: var(--red-light); box-shadow: 0 10px 30px rgba(168, 17, 29, 0.8); transform: translateY(-3px); }
@@ -570,7 +589,7 @@
         .footer-text { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; }
 
         /* =========================================================
-           RESPONSIVIDADE MÓVEL OTIMIZADA (SEM TRAVAS DE SCROLL)
+           RESPONSIVIDADE MÓVEL OTIMIZADA
            ========================================================= */
         @media (max-width: 900px) {
             .contact-inner { 
@@ -598,7 +617,7 @@
             .intro { font-size: 1rem; margin-top: 25px; }
             
             .book-chapter { 
-                padding: 25px 15px; 
+                padding: 25px 12px; 
                 margin-bottom: 40px;
             }
 
@@ -610,10 +629,10 @@
             .card-title { font-size: 1.2rem; }
             
             .contact-inner { 
-                padding: 20px 12px; 
-                gap: 25px; 
+                padding: 15px 10px; 
+                gap: 20px; 
             }
-            .contact-info h3 { font-size: 1.5rem; }
+            .contact-info h3 { font-size: 1.4rem; }
             
             .footer-logo { font-size: 1.6rem; }
         }
@@ -894,7 +913,7 @@
             </div>
         </section>
 
-        <!-- CAPÍTULO V -->
+        <!-- CAPÍTULO V (REESTRUTURADO E 100% CONTIDO) -->
         <section class="book-chapter" id="cap5">
             <div class="section-header">
                 <span class="section-number">Capítulo V</span>
@@ -958,7 +977,7 @@
         <p class="footer-text" style="margin-top: 15px; font-size: 0.75rem; color: #888;">Santo Corte Charcutaria &copy; 2026 | @santocorte.charcutaria</p>
     </footer>
 
-    <!-- Script Otimizado (Sem travamentos no telemóvel) -->
+    <!-- Script Otimizado -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Partículas de Fundo
@@ -1009,7 +1028,7 @@
 
             window.addEventListener('scroll', () => {
                 let scrollPos = window.scrollY;
-                chapters.forEach((chapter, index) => {
+                chapters.forEach((chapter) => {
                     let top = chapter.offsetTop - 300;
                     let height = chapter.offsetHeight;
                     let id = chapter.getAttribute('id');
