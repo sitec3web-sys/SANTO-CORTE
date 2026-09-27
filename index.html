@@ -39,7 +39,7 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* --- Fundo 3D de Chamas e Fagulhas (Atrás de tudo) --- */
+        /* --- Fundo 3D Imersivo de Fogo e Chamas --- */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -53,15 +53,15 @@
         .ambient-glow {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at 50% 85%, rgba(190, 45, 10, 0.4) 0%, rgba(80, 10, 5, 0.65) 45%, rgba(4, 1, 2, 0.98) 90%);
+            background: radial-gradient(circle at 50% 90%, rgba(220, 50, 10, 0.45) 0%, rgba(100, 15, 5, 0.7) 40%, rgba(4, 1, 2, 0.98) 90%);
             z-index: -2;
             pointer-events: none;
-            animation: firePulse 6s ease-in-out infinite alternate;
+            animation: firePulse 5s ease-in-out infinite alternate;
         }
 
         @keyframes firePulse {
-            0% { opacity: 0.65; transform: scale(1); filter: brightness(0.9); }
-            100% { opacity: 1; transform: scale(1.04); filter: brightness(1.25); }
+            0% { opacity: 0.7; transform: scale(1); filter: brightness(0.9); }
+            100% { opacity: 1; transform: scale(1.04); filter: brightness(1.3); }
         }
 
         /* --- Marcador de Página Lateral --- */
@@ -96,7 +96,7 @@
             transform: scale(1.3);
         }
 
-        /* --- Hero Section (Com atmosfera de fogo no fundo) --- */
+        /* --- Hero Section --- */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -114,14 +114,14 @@
             inset: -40px;
             background: url('https://images.unsplash.com/photo-1544025162-811114b0a430?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
             z-index: 1;
-            opacity: 0.25;
+            opacity: 0.22;
         }
 
         .hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(4,1,2,0.4) 0%, rgba(4,1,2,0.92) 100%);
+            background: linear-gradient(to bottom, rgba(4,1,2,0.3) 0%, rgba(4,1,2,0.92) 100%);
             z-index: 2;
         }
 
@@ -665,7 +665,7 @@
 </head>
 <body>
 
-    <!-- Canvas de Fundo 3D (Fogo e Fagulhas atrás de todo o site e do banner) -->
+    <!-- Canvas com Efeito de Fogo Tridimensional e Fagulhas Incandescentes -->
     <canvas id="bg-canvas"></canvas>
     <div class="ambient-glow"></div>
 
@@ -1002,7 +1002,7 @@
         <p class="footer-text" style="margin-top: 15px; font-size: 0.75rem; color: #888;">Santo Corte Charcutaria &copy; 2026 | @santocorte.charcutaria</p>
     </footer>
 
-    <!-- Script JavaScript para Simulação 3D de Fogo e Fagulhas no Fundo -->
+    <!-- Script JavaScript Otimizado para Animação 3D de Chamas e Brasas no Fundo -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.getElementById('bg-canvas');
@@ -1015,51 +1015,54 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            // Partículas 3D em camadas de profundidade simulando fogo e fagulhas no fundo
-            const particles = [];
-            const particleCount = 65;
+            // Criação de partículas simulando chamas, brasas incandescentes e faíscas em camadas 3D
+            const fireParticles = [];
+            const count = 75;
 
-            for(let i = 0; i < particleCount; i++) {
-                particles.push({
+            for(let i = 0; i < count; i++) {
+                fireParticles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    z: Math.random() * 2 + 0.5, // Fator de profundidade 3D
-                    radius: Math.random() * 2.8 + 0.8,
-                    color: Math.random() > 0.35 ? 'rgba(255, 110, 0, ' + (Math.random() * 0.5 + 0.2) + ')' : 'rgba(230, 30, 30, ' + (Math.random() * 0.4 + 0.1) + ')',
-                    speedY: -1 * (Math.random() * 1.5 + 0.6), // Sobe de baixo para cima
-                    speedX: (Math.random() - 0.5) * 0.8,
-                    pulse: Math.random() * Math.PI
+                    z: Math.random() * 2.2 + 0.4, // Fator de profundidade 3D
+                    size: Math.random() * 4 + 1,
+                    color: Math.random() > 0.25 ? 
+                        `rgba(255, ${Math.floor(Math.random() * 120) + 60}, 0, ${Math.random() * 0.6 + 0.2})` : 
+                        `rgba(240, 20, 20, ${Math.random() * 0.5 + 0.2})`,
+                    speedY: -1 * (Math.random() * 1.8 + 0.8), // Movimento ascendente simulando o calor subindo
+                    speedX: (Math.random() - 0.5) * 1.2,
+                    oscillation: Math.random() * Math.PI * 2
                 });
             }
 
-            function animate() {
+            function renderFire() {
                 ctx.clearRect(0, 0, width, height);
 
-                particles.forEach(p => {
-                    p.pulse += 0.03;
-                    p.x += p.speedX + Math.sin(p.pulse) * 0.3; // Oscilação leve em 3D
-                    p.y += p.speedY * p.z; // Partículas mais próximas sobem mais rápido
+                fireParticles.forEach(p => {
+                    p.oscillation += 0.04;
+                    p.x += p.speedX + Math.sin(p.oscillation) * 0.5; // Efeito orgânico de labareda de fogo
+                    p.y += p.speedY * p.z; // Profundidade: partículas mais próximas movem-se mais rápido
 
-                    // Reciclar partícula para baixo quando atingir o topo
+                    // Reposicionar partículas no fundo quando saírem pelo topo
                     if(p.y < -20) {
                         p.y = height + 20;
                         p.x = Math.random() * width;
-                        p.z = Math.random() * 2 + 0.5;
+                        p.z = Math.random() * 2.2 + 0.4;
                     }
                     if(p.x < 0) p.x = width;
                     if(p.x > width) p.x = 0;
 
+                    // Desenhar a partícula com brilho estilo brasa / fogo
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius * p.z, 0, Math.PI * 2);
+                    ctx.arc(p.x, p.y, p.size * p.z, 0, Math.PI * 2);
                     ctx.fillStyle = p.color;
-                    ctx.shadowBlur = 12 * p.z;
-                    ctx.shadowColor = '#ff4500';
+                    ctx.shadowBlur = 15 * p.z;
+                    ctx.shadowColor = '#ff3300';
                     ctx.fill();
                 });
 
-                requestAnimationFrame(animate);
+                requestAnimationFrame(renderFire);
             }
-            animate();
+            renderFire();
 
             // Sincronização do Marcador Lateral
             const chapters = document.querySelectorAll('.book-chapter');
@@ -1079,7 +1082,7 @@
                 });
             }, { passive: true });
 
-            // Parallax leve no Hero
+            // Parallax suave no Hero
             window.addEventListener('scroll', () => {
                 const scrollY = window.scrollY;
                 const heroBg = document.getElementById('heroBg');
