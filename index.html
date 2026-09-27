@@ -29,7 +29,7 @@
             color: var(--text-light);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Garante que nada passe para a direita */
             width: 100%;
             perspective: 3000px;
             scroll-behavior: smooth;
@@ -246,7 +246,6 @@
             transform-origin: left center;
             opacity: 0.4;
             filter: blur(2px);
-            /* Efeito principal em desktop */
             transform: rotateY(-22deg) rotateX(8deg) translateZ(-80px) scale(0.96);
             transition: transform 1.2s cubic-bezier(0.15, 0.85, 0.35, 1.2), opacity 1.2s ease, filter 1.2s ease;
             will-change: transform, opacity, filter;
@@ -283,6 +282,7 @@
             text-transform: uppercase;
             color: var(--text-light);
             text-shadow: 0 8px 25px rgba(0,0,0,0.9);
+            word-wrap: break-word; /* Previne cortes em títulos grandes */
         }
 
         .section-desc {
@@ -293,7 +293,7 @@
             font-size: 1.1rem;
         }
 
-        /* --- Grid Responsivo --- */
+        /* --- Grid --- */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -490,6 +490,7 @@
 
         .contact-inner > div, .contact-inner > form {
             transform: translateZ(30px);
+            width: 100%;
         }
 
         .contact-info {
@@ -506,7 +507,7 @@
             letter-spacing: 2px;
         }
 
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; width: 100%; }
 
         .form-input {
             width: 100%;
@@ -518,6 +519,7 @@
             border-radius: 6px;
             font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
+            box-sizing: border-box; /* Previne vazamento lateral */
         }
 
         .form-input:focus {
@@ -546,6 +548,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .btn svg {
@@ -610,23 +613,31 @@
         .footer-text { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; }
 
         /* =========================================================
-           MEDIA QUERIES - RESPONSIVIDADE PARA TABLETS E CELULARES 
+           CORREÇÕES DEFINITIVAS DE RESPONSIVIDADE (MOBILE & TABLET)
            ========================================================= */
         @media (max-width: 900px) {
             .contact-inner { grid-template-columns: 1fr; padding: 25px; }
-            .title { font-size: 4rem; }
-            .book-chapter { padding: 40px 25px; margin-bottom: 80px; }
+            .title { font-size: 3.5rem; }
+            .book-chapter { padding: 40px 20px; margin-bottom: 80px; }
             .bookmark-container { display: none; }
-            .menu-grid { grid-template-columns: 1fr; gap: 30px; }
-            main { padding: 40px 15px; }
+            
+            /* Reset extremo do 3D para evitar textos a fugir para a direita */
+            .card-title, .menu-item, .partner-name, .partner-role, .contact-inner > div, .contact-inner > form, .section-header {
+                transform: none !important;
+            }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            .menu-grid, .partners-grid {
+                grid-template-columns: 1fr; /* Força 100% largura sem ultrapassar */
+                gap: 30px;
+            }
+            
             .hero { padding: 20px 15px; }
             .logo-emblem { width: 110px; height: 110px; margin-bottom: 15px; }
             .logo-emblem h2 { font-size: 0.95rem; }
             
-            .title { font-size: 2.8rem; letter-spacing: 2px; }
+            .title { font-size: 2.5rem; letter-spacing: 2px; }
             .subtitle { font-size: 0.85rem; letter-spacing: 6px; }
             .tagline { font-size: 0.75rem; padding: 10px 15px; letter-spacing: 3px; }
             .intro { font-size: 1rem; margin-top: 25px; }
@@ -634,21 +645,20 @@
             .book-chapter { 
                 padding: 30px 15px; 
                 margin-bottom: 60px;
-                /* No celular, substituímos a rotação 3D extrema por uma revelação vertical suave para evitar o vazamento lateral da tela */
-                transform: translateY(40px) scale(0.98); 
-            }
-            .book-chapter.active {
-                transform: translateY(0) scale(1);
+                /* Remove rotação 3D que quebra a largura da tela */
+                transform: translateY(30px) !important;
+                opacity: 1 !important;
+                filter: none !important;
             }
 
-            .section-title { font-size: 2rem; letter-spacing: 2px; }
+            .section-title { font-size: 1.8rem; letter-spacing: 2px; }
             .section-number { font-size: 1rem; }
             .section-desc { font-size: 0.95rem; }
 
             .card-content { padding: 25px 15px; }
             .card-title { font-size: 1.2rem; }
             
-            .contact-inner { padding: 20px 15px; }
+            .contact-inner { padding: 20px 15px; gap: 20px; }
             .contact-info h3 { font-size: 1.5rem; }
             
             .footer-logo { font-size: 1.6rem; }
@@ -758,7 +768,8 @@
                 <div class="menu-card-wrapper" data-tilt>
                     <div class="menu-card">
                         <div class="card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1608500218890-c4f8601cb813?auto=format&fit=crop&q=80&w=600" alt="Kaftas" class="card-img">
+                            <!-- Imagem corrigida para "Kaftas" -->
+                            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=600" alt="Kaftas Especiais" class="card-img">
                         </div>
                         <div class="card-content">
                             <h3 class="card-title">Kaftas Especiais</h3>
@@ -796,7 +807,8 @@
                 <div class="menu-card-wrapper" data-tilt>
                     <div class="menu-card">
                         <div class="card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5e?auto=format&fit=crop&q=80&w=600" alt="Espetos Tradicionais" class="card-img">
+                            <!-- Imagem corrigida para Espetos -->
+                            <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=600" alt="Espetos Tradicionais" class="card-img">
                         </div>
                         <div class="card-content">
                             <h3 class="card-title">Espetos Tradicionais</h3>
@@ -819,7 +831,7 @@
                 <div class="menu-card-wrapper" data-tilt>
                     <div class="menu-card">
                         <div class="card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=600" alt="Espetos Especiais" class="card-img">
+                            <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&fit=crop&q=80&w=600" alt="Espetos Especiais" class="card-img">
                         </div>
                         <div class="card-content">
                             <h3 class="card-title">Espetos Especiais</h3>
@@ -849,7 +861,8 @@
                 <div class="menu-card-wrapper" data-tilt>
                     <div class="menu-card">
                         <div class="card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1602030638412-bb8d20c51344?auto=format&fit=crop&q=80&w=600" alt="Aves Temperadas" class="card-img">
+                            <!-- Imagem corrigida para Aves Temperadas -->
+                            <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&q=80&w=600" alt="Aves Temperadas" class="card-img">
                         </div>
                         <div class="card-content">
                             <h3 class="card-title">Seleção de Aves</h3>
@@ -965,13 +978,6 @@
                         <a href="https://wa.me/5500000000000" class="btn btn-whatsapp" target="_blank">
                             <svg viewBox="0 0 24 24">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                            </svg>
-                            WhatsApp Direto
-                        </a>
-                        
-                        <a href="mailto:contato@santocorte.com.br" class="btn btn-email">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
                             </svg>
                             contato@santocorte.com.br
                         </a>
@@ -1093,8 +1099,7 @@
                 window.addEventListener('scroll', updateBounds);
 
                 const rotateCard = (clientX, clientY) => {
-                    // Previne o tilt exagerado em telas muito pequenas que pode bugar o touch
-                    if(window.innerWidth < 768) return;
+                    if(window.innerWidth < 768) return; // Desativa tilt dinâmico agressivo em mobile
 
                     const x = clientX - bounds.left;
                     const y = clientY - bounds.top;
@@ -1124,8 +1129,10 @@
                 }, { passive: true });
 
                 const resetCard = () => {
-                    element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-                    element.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+                    if(window.innerWidth >= 768) {
+                        element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                        element.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+                    }
                 };
 
                 element.addEventListener('mouseleave', resetCard);
