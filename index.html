@@ -29,9 +29,8 @@
             color: var(--text-light);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden; /* Garante que nada passe para a direita */
+            overflow-x: hidden;
             width: 100%;
-            perspective: 3000px;
             scroll-behavior: smooth;
         }
 
@@ -56,12 +55,6 @@
             background: radial-gradient(circle at 50% 20%, rgba(70, 0, 8, 0.45) 0%, rgba(4, 1, 2, 0.99) 85%);
             z-index: -2;
             pointer-events: none;
-            animation: bgPulse 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes bgPulse {
-            0% { opacity: 0.6; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.05); }
         }
 
         /* --- Marcador de Página Lateral --- */
@@ -114,7 +107,6 @@
             inset: -40px;
             background: url('https://images.unsplash.com/photo-1544025162-811114b0a430?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
             z-index: 1;
-            will-change: transform;
             opacity: 0.3;
         }
 
@@ -233,36 +225,21 @@
             width: 100%;
         }
 
-        /* --- Sistema de Páginas do Livro --- */
+        /* --- Capítulos --- */
         .book-chapter {
             position: relative;
             background: linear-gradient(135deg, rgba(16, 4, 7, 0.96), rgba(8, 2, 5, 0.98));
             border: 1px solid rgba(168, 17, 29, 0.35);
             border-radius: 12px;
             padding: 60px 40px;
-            margin-bottom: 120px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), inset 0 0 50px rgba(59, 0, 4, 0.35);
-            transform-style: preserve-3d;
-            transform-origin: left center;
-            opacity: 0.4;
-            filter: blur(2px);
-            transform: rotateY(-22deg) rotateX(8deg) translateZ(-80px) scale(0.96);
-            transition: transform 1.2s cubic-bezier(0.15, 0.85, 0.35, 1.2), opacity 1.2s ease, filter 1.2s ease;
-            will-change: transform, opacity, filter;
+            margin-bottom: 100px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
             width: 100%;
-        }
-
-        .book-chapter.active {
-            opacity: 1;
-            filter: blur(0px);
-            transform: rotateY(0deg) rotateX(0deg) translateZ(0px) scale(1);
         }
 
         .section-header {
             text-align: center;
             margin-bottom: 50px;
-            transform: translateZ(30px);
-            transform-style: preserve-3d;
         }
 
         .section-number {
@@ -282,7 +259,7 @@
             text-transform: uppercase;
             color: var(--text-light);
             text-shadow: 0 8px 25px rgba(0,0,0,0.9);
-            word-wrap: break-word; /* Previne cortes em títulos grandes */
+            word-wrap: break-word;
         }
 
         .section-desc {
@@ -298,7 +275,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
-            transform-style: preserve-3d;
             width: 100%;
         }
 
@@ -309,38 +285,10 @@
             background: linear-gradient(120deg, var(--grená-dark), var(--red-main), rgba(255,255,255,0.1), var(--red-light), var(--grená-dark));
             background-size: 350% 350%;
             animation: borderMotion 5s linear infinite;
-            transform-style: preserve-3d;
             box-shadow: 0 20px 40px rgba(59, 0, 4, 0.4);
-            transition: box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: transform;
             display: flex;
             flex-direction: column;
             width: 100%;
-        }
-
-        .menu-card-wrapper:hover, .partner-card-wrapper:hover {
-            box-shadow: 0 30px 60px rgba(168, 17, 29, 0.5);
-        }
-
-        .menu-card-wrapper::before,
-        .partner-card-wrapper::before,
-        .contact-wrapper-glow::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 12px;
-            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.9), transparent 40%);
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            mix-blend-mode: overlay;
-        }
-
-        .menu-card-wrapper:hover::before,
-        .partner-card-wrapper:hover::before,
-        .contact-wrapper-glow:hover::before {
-            opacity: 1;
         }
 
         @keyframes borderMotion {
@@ -353,7 +301,6 @@
             background: #090306;
             border-radius: 10px;
             position: relative;
-            transform-style: preserve-3d;
             z-index: 1; 
             flex: 1;
             display: flex;
@@ -366,7 +313,6 @@
             height: 220px;
             position: relative;
             background-color: #140406;
-            transform: translateZ(20px);
             border-radius: 10px 10px 0 0; 
             overflow: hidden; 
         }
@@ -394,7 +340,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            transform-style: preserve-3d;
+            width: 100%;
         }
 
         .card-title {
@@ -406,14 +352,12 @@
             border-bottom: 1px solid rgba(168, 17, 29, 0.4);
             letter-spacing: 2px;
             text-transform: uppercase;
-            transform: translateZ(40px);
         }
 
         .menu-item {
             margin-bottom: 18px;
             position: relative;
             padding-left: 18px;
-            transform: translateZ(30px);
         }
 
         .menu-item:last-child {
@@ -453,7 +397,7 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
             margin-top: 30px;
-            transform-style: preserve-3d;
+            width: 100%;
         }
 
         .partner-card {
@@ -468,7 +412,6 @@
             color: var(--text-light);
             margin-bottom: 8px;
             letter-spacing: 1px;
-            transform: translateZ(40px);
         }
 
         .partner-role {
@@ -477,20 +420,22 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 500;
-            transform: translateZ(30px);
         }
 
-        /* --- Formulário --- */
+        /* --- Formulário e Contato (Corrigido para nunca exceder o cartão) --- */
         .contact-inner {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             padding: 40px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .contact-inner > div, .contact-inner > form {
-            transform: translateZ(30px);
+        .contact-form {
             width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .contact-info {
@@ -498,6 +443,7 @@
             flex-direction: column;
             justify-content: center;
             gap: 20px;
+            width: 100%;
         }
 
         .contact-info h3 {
@@ -507,10 +453,14 @@
             letter-spacing: 2px;
         }
 
-        .form-group { margin-bottom: 20px; width: 100%; }
+        .form-group { 
+            margin-bottom: 20px; 
+            width: 100%; 
+        }
 
         .form-input {
             width: 100%;
+            max-width: 100%;
             background: rgba(0, 0, 0, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--text-light);
@@ -518,8 +468,8 @@
             font-size: 1rem;
             border-radius: 6px;
             font-family: 'Montserrat', sans-serif;
+            box-sizing: border-box; /* Impede que o padding ultrapasse o container */
             transition: all 0.3s ease;
-            box-sizing: border-box; /* Previne vazamento lateral */
         }
 
         .form-input:focus {
@@ -548,6 +498,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             width: 100%;
+            max-width: 100%;
             box-sizing: border-box;
         }
 
@@ -558,7 +509,13 @@
             fill: currentColor;
         }
 
-        .btn-submit { background-color: var(--red-main); color: var(--text-light); border: none; margin-top: 10px; font-family: 'Cinzel', serif; }
+        .btn-submit { 
+            background-color: var(--red-main); 
+            color: var(--text-light); 
+            border: none; 
+            margin-top: 10px; 
+            font-family: 'Cinzel', serif; 
+        }
         .btn-submit:hover { background-color: var(--red-light); box-shadow: 0 10px 30px rgba(168, 17, 29, 0.8); transform: translateY(-3px); }
         .btn-whatsapp { background-color: transparent; color: var(--whatsapp-green); border: 1px solid var(--whatsapp-green); }
         .btn-whatsapp:hover { background-color: var(--whatsapp-green); color: #000; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6); transform: translateY(-3px); }
@@ -613,24 +570,22 @@
         .footer-text { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; }
 
         /* =========================================================
-           CORREÇÕES DEFINITIVAS DE RESPONSIVIDADE (MOBILE & TABLET)
+           RESPONSIVIDADE MÓVEL OTIMIZADA (SEM TRAVAS DE SCROLL)
            ========================================================= */
         @media (max-width: 900px) {
-            .contact-inner { grid-template-columns: 1fr; padding: 25px; }
-            .title { font-size: 3.5rem; }
-            .book-chapter { padding: 40px 20px; margin-bottom: 80px; }
-            .bookmark-container { display: none; }
-            
-            /* Reset extremo do 3D para evitar textos a fugir para a direita */
-            .card-title, .menu-item, .partner-name, .partner-role, .contact-inner > div, .contact-inner > form, .section-header {
-                transform: none !important;
+            .contact-inner { 
+                grid-template-columns: 1fr; 
+                padding: 25px 20px; 
             }
+            .title { font-size: 3.5rem; }
+            .book-chapter { padding: 40px 20px; margin-bottom: 60px; }
+            .bookmark-container { display: none; }
         }
 
         @media (max-width: 768px) {
             .menu-grid, .partners-grid {
-                grid-template-columns: 1fr; /* Força 100% largura sem ultrapassar */
-                gap: 30px;
+                grid-template-columns: 1fr;
+                gap: 25px;
             }
             
             .hero { padding: 20px 15px; }
@@ -643,12 +598,8 @@
             .intro { font-size: 1rem; margin-top: 25px; }
             
             .book-chapter { 
-                padding: 30px 15px; 
-                margin-bottom: 60px;
-                /* Remove rotação 3D que quebra a largura da tela */
-                transform: translateY(30px) !important;
-                opacity: 1 !important;
-                filter: none !important;
+                padding: 25px 15px; 
+                margin-bottom: 40px;
             }
 
             .section-title { font-size: 1.8rem; letter-spacing: 2px; }
@@ -658,7 +609,10 @@
             .card-content { padding: 25px 15px; }
             .card-title { font-size: 1.2rem; }
             
-            .contact-inner { padding: 20px 15px; gap: 20px; }
+            .contact-inner { 
+                padding: 20px 12px; 
+                gap: 25px; 
+            }
             .contact-info h3 { font-size: 1.5rem; }
             
             .footer-logo { font-size: 1.6rem; }
@@ -707,7 +661,7 @@
             </div>
 
             <div class="menu-grid">
-                <div class="menu-card-wrapper" data-tilt>
+                <div class="menu-card-wrapper">
                     <div class="menu-card">
                         <div class="card-img-wrapper">
                             <img src="https://images.unsplash.com/photo-1595295333158-4742f28fbd85?auto=format&fit=crop&q=80&w=600" alt="Linguiças e Mantas Artesanais" class="card-img">
@@ -738,7 +692,7 @@
                     </div>
                 </div>
 
-                <div class="menu-card-wrapper" data-tilt>
+                <div class="menu-card-wrapper">
                     <div class="menu-card">
                         <div class="card-img-wrapper">
                             <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&q=80&w=600" alt="Hambúrgueres Gourmet" class="card-img">
@@ -765,10 +719,9 @@
                     </div>
                 </div>
 
-                <div class="menu-card-wrapper" data-tilt>
+                <div class="menu-card-wrapper">
                     <div class="menu-card">
                         <div class="card-img-wrapper">
-                            <!-- Imagem corrigida para "Kaftas" -->
                             <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=600" alt="Kaftas Especiais" class="card-img">
                         </div>
                         <div class="card-content">
@@ -804,10 +757,9 @@
             </div>
 
             <div class="menu-grid">
-                <div class="menu-card-wrapper" data-tilt>
+                <div class="menu-card-wrapper">
                     <div class="menu-card">
                         <div class="card-img-wrapper">
-                            <!-- Imagem corrigida para Espetos -->
                             <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=600" alt="Espetos Tradicionais" class="card-img">
                         </div>
                         <div class="card-content">
@@ -828,7 +780,7 @@
                     </div>
                 </div>
 
-                <div class="menu-card-wrapper" data-tilt>
+                <div class="menu-card-wrapper">
                     <div class="menu-card">
                         <div class="card-img-wrapper">
                             <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&fit=crop&q=80&w=600" alt="Espetos Especiais" class="card-img">
@@ -858,10 +810,9 @@
             </div>
 
             <div class="menu-grid">
-                <div class="menu-card-wrapper" data-tilt>
+                <div class="menu-card-wrapper">
                     <div class="menu-card">
                         <div class="card-img-wrapper">
-                            <!-- Imagem corrigida para Aves Temperadas -->
                             <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&q=80&w=600" alt="Aves Temperadas" class="card-img">
                         </div>
                         <div class="card-content">
@@ -882,7 +833,7 @@
                     </div>
                 </div>
 
-                <div class="menu-card-wrapper" data-tilt>
+                <div class="menu-card-wrapper">
                     <div class="menu-card">
                         <div class="card-img-wrapper">
                             <img src="https://images.unsplash.com/photo-1623855244183-52fd8d3ce2f7?auto=format&fit=crop&q=80&w=600" alt="Carnes Nobres Temperadas" class="card-img">
@@ -916,25 +867,25 @@
             </div>
 
             <div class="partners-grid">
-                <div class="partner-card-wrapper" data-tilt>
+                <div class="partner-card-wrapper">
                     <div class="partner-card">
                         <h4 class="partner-name">[Seu Estabelecimento / Empório]</h4>
                         <span class="partner-role">Revendedor Autorizado</span>
                     </div>
                 </div>
-                <div class="partner-card-wrapper" data-tilt>
+                <div class="partner-card-wrapper">
                     <div class="partner-card">
                         <h4 class="partner-name">[Supermercado / Casa de Carnes]</h4>
                         <span class="partner-role">Parceiro Comercial</span>
                     </div>
                 </div>
-                <div class="partner-card-wrapper" data-tilt>
+                <div class="partner-card-wrapper">
                     <div class="partner-card">
                         <h4 class="partner-name">[Distribuidor Regional]</h4>
                         <span class="partner-role">Logística & Revenda</span>
                     </div>
                 </div>
-                <div class="partner-card-wrapper" data-tilt>
+                <div class="partner-card-wrapper">
                     <div class="partner-card">
                         <h4 class="partner-name">[Seja um Revendedor]</h4>
                         <span class="partner-role">Consulte Condições</span>
@@ -951,9 +902,9 @@
                 <p class="section-desc">Entre em contato para pedidos, revenda ou atendimento exclusivo para o seu evento.</p>
             </div>
 
-            <div class="contact-wrapper-glow" data-tilt data-tilt-max="2">
+            <div class="contact-wrapper-glow">
                 <div class="contact-inner">
-                    <form action="#" method="POST" class="contact-form" style="position:relative; z-index:4;">
+                    <form action="#" method="POST" class="contact-form">
                         <div class="form-group">
                             <input type="text" name="nome" class="form-input" placeholder="Seu Nome Completo" required>
                         </div>
@@ -969,7 +920,7 @@
                         <button type="submit" class="btn btn-submit">Enviar Mensagem</button>
                     </form>
 
-                    <div class="contact-info" style="position:relative; z-index:4;">
+                    <div class="contact-info">
                         <div>
                             <h3>Fale Conosco</h3>
                             <p>Precisa de uma resposta rápida e personalizada? Utilize os nossos canais de atendimento direto.</p>
@@ -978,6 +929,13 @@
                         <a href="https://wa.me/5500000000000" class="btn btn-whatsapp" target="_blank">
                             <svg viewBox="0 0 24 24">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                            </svg>
+                            WhatsApp Direto
+                        </a>
+                        
+                        <a href="mailto:contato@santocorte.com.br" class="btn btn-email">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
                             </svg>
                             contato@santocorte.com.br
                         </a>
@@ -1000,10 +958,10 @@
         <p class="footer-text" style="margin-top: 15px; font-size: 0.75rem; color: #888;">Santo Corte Charcutaria &copy; 2026 | @santocorte.charcutaria</p>
     </footer>
 
-    <!-- Script JavaScript Avançado -->
+    <!-- Script Otimizado (Sem travamentos no telemóvel) -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Partículas de Fundo Estilo Brasa / Fumaça Sutil
+            // Partículas de Fundo
             const canvas = document.getElementById('bg-canvas');
             const ctx = canvas.getContext('2d');
             let width = canvas.width = window.innerWidth;
@@ -1015,14 +973,14 @@
             });
 
             const particles = [];
-            for(let i=0; i<30; i++) {
+            for(let i=0; i<25; i++) {
                 particles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    radius: Math.random() * 2.5 + 0.5,
-                    color: Math.random() > 0.3 ? 'rgba(168, 17, 29, 0.3)' : 'rgba(255, 140, 0, 0.15)',
-                    speedY: (Math.random() - 0.7) * 0.5,
-                    speedX: (Math.random() - 0.5) * 0.3
+                    radius: Math.random() * 2 + 0.5,
+                    color: Math.random() > 0.3 ? 'rgba(168, 17, 29, 0.25)' : 'rgba(255, 140, 0, 0.1)',
+                    speedY: (Math.random() - 0.7) * 0.4,
+                    speedX: (Math.random() - 0.5) * 0.2
                 });
             }
 
@@ -1049,102 +1007,28 @@
             const chapters = document.querySelectorAll('.book-chapter');
             const dots = document.querySelectorAll('.bookmark-dot');
 
-            const chapterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        
-                        const id = entry.target.getAttribute('id');
-                        dots.forEach(dot => {
-                            if(dot.getAttribute('href') === `#${id}`) {
-                                dot.classList.add('active');
-                            } else {
-                                dot.classList.remove('active');
-                            }
-                        });
+            window.addEventListener('scroll', () => {
+                let scrollPos = window.scrollY;
+                chapters.forEach((chapter, index) => {
+                    let top = chapter.offsetTop - 300;
+                    let height = chapter.offsetHeight;
+                    let id = chapter.getAttribute('id');
+                    if (scrollPos >= top && scrollPos < top + height) {
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        const activeDot = document.querySelector(`.bookmark-dot[href="#${id}"]`);
+                        if (activeDot) activeDot.classList.add('active');
                     }
                 });
-            }, { 
-                threshold: 0.15, 
-                rootMargin: "0px 0px -50px 0px"
-            });
+            }, { passive: true });
 
-            chapters.forEach(chapter => {
-                chapterObserver.observe(chapter);
-                if(chapter.getBoundingClientRect().top < window.innerHeight * 0.8) {
-                    chapter.classList.add('active');
-                }
-            });
-
-            // Parallax Suave no Scroll do Hero
+            // Parallax leve e sem travamento no Hero
             window.addEventListener('scroll', () => {
                 const scrollY = window.scrollY;
                 const heroBg = document.getElementById('heroBg');
                 const heroContent = document.getElementById('heroContent');
-                if (heroBg) heroBg.style.transform = `translateY(${scrollY * 0.4}px) scale(1.15)`;
-                if (heroContent) heroContent.style.transform = `translateY(${scrollY * 0.2}px)`;
-            });
-
-            // Motor 3D Tilt com Brilho Inteligente nas Bordas
-            const tiltElements = document.querySelectorAll('[data-tilt]');
-
-            tiltElements.forEach(element => {
-                let bounds = element.getBoundingClientRect();
-
-                function updateBounds() {
-                    bounds = element.getBoundingClientRect();
-                }
-
-                window.addEventListener('resize', updateBounds);
-                window.addEventListener('scroll', updateBounds);
-
-                const rotateCard = (clientX, clientY) => {
-                    if(window.innerWidth < 768) return; // Desativa tilt dinâmico agressivo em mobile
-
-                    const x = clientX - bounds.left;
-                    const y = clientY - bounds.top;
-                    
-                    const xc = bounds.width / 2;
-                    const yc = bounds.height / 2;
-                    
-                    const dx = (x - xc) / xc;
-                    const dy = (y - yc) / yc;
-
-                    const rotateX = dy * -6;
-                    const rotateY = dx * 6;
-
-                    element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                    element.style.setProperty('--mouse-x', `${x}px`);
-                    element.style.setProperty('--mouse-y', `${y}px`);
-                };
-
-                element.addEventListener('mousemove', (e) => {
-                    rotateCard(e.clientX, e.clientY);
-                });
-
-                element.addEventListener('touchmove', (e) => {
-                    if (e.touches.length > 0) {
-                        rotateCard(e.touches[0].clientX, e.touches[0].clientY);
-                    }
-                }, { passive: true });
-
-                const resetCard = () => {
-                    if(window.innerWidth >= 768) {
-                        element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-                        element.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
-                    }
-                };
-
-                element.addEventListener('mouseleave', resetCard);
-                element.addEventListener('touchend', resetCard);
-
-                element.addEventListener('mouseenter', () => {
-                    if(window.innerWidth >= 768) {
-                        element.style.transition = 'none';
-                        updateBounds();
-                    }
-                });
-            });
+                if (heroBg) heroBg.style.transform = `translateY(${scrollY * 0.3}px) scale(1.1)`;
+                if (heroContent) heroContent.style.transform = `translateY(${scrollY * 0.15}px)`;
+            }, { passive: true });
         });
     </script>
 </body>
